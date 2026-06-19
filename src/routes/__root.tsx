@@ -18,6 +18,7 @@ interface MyRouterContext {
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
+  notFoundComponent: NotFound,
   head: () => ({
     meta: [
       {
@@ -41,13 +42,17 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   shellComponent: RootDocument,
 })
 
+function NotFound() {
+  return <main className="p-6">Page not found</main>
+}
+
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body className="mx-auto min-h-screen w-full max-w-150 bg-black text-white">
         <Header />
         {children}
         <TanStackDevtools
