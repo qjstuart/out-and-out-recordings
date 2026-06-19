@@ -1,4 +1,19 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
-@custom-variant dark (&:is(.dark *));
+@font-face {
+  font-family: 'ITC Handel Gothic Arabic';
+  src: url('./assets/fonts/itc-handel-gothic-arabic-heavy.woff2')
+    format('woff2');
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+}
+
+@theme {
+  --font-arabic: 'ITC Handel Gothic Arabic', sans-serif;
+}
+
+.font-arabic {
+  text-transform: uppercase;
+}
