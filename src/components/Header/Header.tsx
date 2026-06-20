@@ -9,11 +9,11 @@ const navItems = [
 
 export default function Header() {
   return (
-    <header className="flex flex-col gap-2">
+    <header className="flex flex-col">
       <div className="flex items-center">
         <Link
           to="/"
-          className="font-arabic whitespace-nowrap font-black leading-none text-white"
+          className="font-arabic whitespace-nowrap font-black leading-none"
           style={{ fontSize: fluidFont(20, 41) }}
         >
           Out And Out Recordings
@@ -26,7 +26,7 @@ export default function Header() {
             <li key={item.to}>
               <Link
                 to={item.to}
-                className="group flex items-center gap-1.5 text-zinc-300 transition-colors hover:text-white"
+                className="group flex items-center gap-1.5 transition-colors hover:text-white"
                 activeOptions={{ exact: true }}
                 activeProps={{ className: 'is-active' }}
               >
