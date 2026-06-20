@@ -5,5 +5,5 @@ export const Route = createFileRoute('/contact')({
 })
 
 function Contact() {
-  return <main className="p-6">Contact</main>
+  return <main>Contact</main>
 }
