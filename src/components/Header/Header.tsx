@@ -9,7 +9,7 @@ const navItems = [
 
 export default function Header() {
   return (
-    <header className="flex flex-col">
+    <header className="flex flex-col pb-2">
       <div className="flex items-center">
         <Link
           to="/"
