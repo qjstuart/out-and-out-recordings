@@ -1,4 +1,5 @@
-import CircleRows from '#/components/CircleMosaic/CircleMosaic'
+import CircleMosaic from '#/components/CircleMosaic/CircleMosaic'
+import { routeThemes } from '#/constants/theme'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/contact')({
@@ -8,7 +9,7 @@ export const Route = createFileRoute('/contact')({
 function Contact() {
   return (
     <main>
-      <CircleRows baseColor="neutral" />
+      <CircleMosaic baseColor={routeThemes['/contact']} />
     </main>
   )
 }

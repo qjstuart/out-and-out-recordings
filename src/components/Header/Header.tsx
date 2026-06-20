@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router'
+import { routeThemes, themeClasses } from '../../constants/theme'
 import { fluidFont } from '../../lib/fluid-font'
 
 const navItems = [
@@ -9,7 +10,7 @@ const navItems = [
 
 export default function Header() {
   return (
-    <header className="flex flex-col pb-2">
+    <header className="flex flex-col mb-4">
       <div className="flex items-center">
         <Link
           to="/"
@@ -22,22 +23,26 @@ export default function Header() {
 
       <nav aria-label="Main navigation">
         <ul className="flex items-center justify-between gap-4">
-          {navItems.map((item) => (
-            <li key={item.to}>
-              <Link
-                to={item.to}
-                className="group flex items-center gap-1.5 transition-colors hover:text-white"
-                activeOptions={{ exact: true }}
-                activeProps={{ className: 'is-active' }}
-              >
-                <span
-                  aria-hidden="true"
-                  className="h-1.5 w-1.5 rounded-full bg-white transition-colors group-[.is-active]:bg-blue-500"
-                />
-                {item.label}
-              </Link>
-            </li>
-          ))}
+          {navItems.map((item) => {
+            const theme = themeClasses[routeThemes[item.to]]
+
+            return (
+              <li key={item.to}>
+                <Link
+                  to={item.to}
+                  className="group flex items-center gap-1 hover:text-neutral-300"
+                  activeOptions={{ exact: true }}
+                  activeProps={{ className: 'is-active' }}
+                >
+                  <span
+                    aria-hidden="true"
+                    className={`h-1.5 w-1.5 rounded-full bg-white ${theme.activeDot}`}
+                  />
+                  {item.label}
+                </Link>
+              </li>
+            )
+          })}
         </ul>
       </nav>
     </header>

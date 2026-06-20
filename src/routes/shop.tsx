@@ -1,3 +1,5 @@
+import CircleMosaic from '#/components/CircleMosaic/CircleMosaic'
+import { routeThemes } from '#/constants/theme'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/shop')({
@@ -5,5 +7,10 @@ export const Route = createFileRoute('/shop')({
 })
 
 function Shop() {
-  return <main>Shop</main>
+  return (
+    <main>
+      {' '}
+      <CircleMosaic baseColor={routeThemes['/shop']} />
+    </main>
+  )
 }
