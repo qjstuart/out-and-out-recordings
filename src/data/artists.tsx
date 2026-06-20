@@ -27,11 +27,14 @@ export const artists = {
           Impedit rem, distinctio ab, officia perferendis facilis voluptas
           voluptates qui odit reiciendis accusantium omnis temporibus
           repudiandae delectus maiores voluptatem sint repellendus placeat nulla
-          iure nobis ipsa? Totam corrupti quos itaque commodi exercitationem
-          soluta maxime omnis mollitia ab explicabo voluptas rerum, nostrum
-          necessitatibus ipsa neque impedit dolorum labore aperiam veniam
-          debitis nihil, temporibus quo. Aspernatur provident delectus eveniet
-          harum, magnam totam recusandae laboriosam quo!
+          iure nobis ipsa?
+        </p>
+        <p>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo
+          voluptas quam quos ipsum quod hic, pariatur iure ea, animi eaque
+          necessitatibus repellendus cum impedit! Aliquam assumenda accusamus
+          consectetur voluptas tempore sapiente, dolores harum quia nulla,
+          corrupti repellendus reprehenderit autem perferendis.
         </p>
       </div>
     ),

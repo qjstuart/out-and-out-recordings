@@ -24,16 +24,21 @@ function RouteComponent() {
       <h3 className="font-arabic mb-4" style={{ fontSize: fluidFont(20, 36) }}>
         {artist.name}
       </h3>
-      <div className="leading-snug text-sm">{artist.bio}</div>
 
-      {galleryImages.map((image) => (
-        <ImageCard
-          key={image}
-          className="w-37.5"
-          src={image}
-          alt={`${artist.name} promotional image`}
-        />
-      ))}
+      <div className="flex flex-col gap-5 md:flex-row">
+        <div className="leading-snug text-sm mb-4">{artist.bio}</div>
+
+        <div className="flex flex-col gap-6">
+          {galleryImages.map((image) => (
+            <ImageCard
+              key={image}
+              className=" mx-auto md:w-45 md:mx-0"
+              src={image}
+              alt={`${artist.name} promotional image`}
+            />
+          ))}
+        </div>
+      </div>
     </main>
   )
 }

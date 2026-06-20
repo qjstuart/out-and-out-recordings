@@ -19,7 +19,14 @@ export default function ImageCard({
   const dialogRef = useRef<HTMLDialogElement>(null)
 
   function openImage() {
-    dialogRef.current?.showModal()
+    const dialog = dialogRef.current
+
+    // We do this because on mobile, the 'X' icon was getting focused immediately.
+    // Instead this focuses the dialog and prevents a focus outline on the 'X' icon.
+    if (dialog) {
+      dialog.showModal()
+      dialog.focus()
+    }
   }
 
   function closeImage() {
@@ -33,7 +40,7 @@ export default function ImageCard({
         onClick={openImage}
         aria-label={`Expand ${alt}`}
         className={cn(
-          'group block w-full cursor-pointer overflow-hidden border border-white',
+          'block w-full cursor-pointer overflow-hidden border border-white',
           className,
         )}
       >
@@ -51,7 +58,7 @@ export default function ImageCard({
         onClick={(event) => {
           if (event.target === event.currentTarget) closeImage()
         }}
-        className="m-auto max-h-none max-w-none overflow-visible bg-transparent p-4 backdrop:bg-black/85"
+        className="m-auto max-h-none max-w-none overflow-visible bg-transparent p-4 focus:outline-none backdrop:bg-black/85"
       >
         <div className="relative flex max-h-[calc(100dvh-2rem)] max-w-[calc(100vw-2rem)] items-center justify-center">
           <img
@@ -63,7 +70,7 @@ export default function ImageCard({
             type="button"
             onClick={closeImage}
             aria-label="Close expanded image"
-            className="absolute right-2 top-2 grid size-9 cursor-pointer place-items-center rounded-full bg-black/75 text-white transition-colors hover:bg-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            className="absolute right-2 top-2 grid size-7 cursor-pointer place-items-center rounded-full bg-black/75 text-white transition-colors hover:bg-black focus-visible:outline focus-visible:outline-white"
           >
             <X aria-hidden="true" className="size-5" />
           </button>
