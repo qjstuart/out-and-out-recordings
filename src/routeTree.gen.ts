@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ShopRouteImport } from './routes/shop'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ArtistsArtistSlugRouteImport } from './routes/artists.$artistSlug'
 
 const ShopRoute = ShopRouteImport.update({
   id: '/shop',
@@ -28,35 +29,44 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ArtistsArtistSlugRoute = ArtistsArtistSlugRouteImport.update({
+  id: '/artists/$artistSlug',
+  path: '/artists/$artistSlug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
   '/shop': typeof ShopRoute
+  '/artists/$artistSlug': typeof ArtistsArtistSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
   '/shop': typeof ShopRoute
+  '/artists/$artistSlug': typeof ArtistsArtistSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
   '/shop': typeof ShopRoute
+  '/artists/$artistSlug': typeof ArtistsArtistSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/contact' | '/shop'
+  fullPaths: '/' | '/contact' | '/shop' | '/artists/$artistSlug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/contact' | '/shop'
-  id: '__root__' | '/' | '/contact' | '/shop'
+  to: '/' | '/contact' | '/shop' | '/artists/$artistSlug'
+  id: '__root__' | '/' | '/contact' | '/shop' | '/artists/$artistSlug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ContactRoute: typeof ContactRoute
   ShopRoute: typeof ShopRoute
+  ArtistsArtistSlugRoute: typeof ArtistsArtistSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +92,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/artists/$artistSlug': {
+      id: '/artists/$artistSlug'
+      path: '/artists/$artistSlug'
+      fullPath: '/artists/$artistSlug'
+      preLoaderRoute: typeof ArtistsArtistSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ContactRoute: ContactRoute,
   ShopRoute: ShopRoute,
+  ArtistsArtistSlugRoute: ArtistsArtistSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,5 +1,5 @@
-import { themeClasses } from '../../constants/theme'
-import { cn } from '../../lib/utils'
+import { themeClasses } from '#/constants/theme'
+import { cn } from '#/lib/utils'
 
 import type { ThemeColor } from '../../constants/theme'
 

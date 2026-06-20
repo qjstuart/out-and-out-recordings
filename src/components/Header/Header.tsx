@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router'
-import { routeThemes, themeClasses } from '../../constants/theme'
-import { fluidFont } from '../../lib/fluid-font'
+import { routeThemes, themeClasses } from '#/constants/theme'
+import { fluidFont } from '#/lib/fluid-font'
 
 const navItems = [
   { label: 'Home', to: '/' },
@@ -15,7 +15,7 @@ export default function Header() {
         <Link
           to="/"
           className="font-arabic whitespace-nowrap font-black leading-none"
-          style={{ fontSize: fluidFont(20, 41) }}
+          style={{ fontSize: fluidFont(20, 50) }}
         >
           Out And Out Recordings
         </Link>

@@ -52,7 +52,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className="font-sans text-white bg-black min-h-screen w-full max-w-150 mx-auto px-6 pt-3">
+      <body className="font-sans text-white bg-black min-h-screen w-full max-w-180 mx-auto px-6 pt-3">
         <Header />
         {children}
         <TanStackDevtools
