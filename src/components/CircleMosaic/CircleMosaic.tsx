@@ -18,7 +18,7 @@ export function CircleMosaic({
 
   return (
     <div
-      className={cn('flex w-full flex-col gap-2', className)}
+      className={cn('flex w-full flex-col gap-2 mb-3', className)}
       aria-hidden="true"
     >
       {themeClasses[baseColor].mosaic.map((color) => (
