@@ -1,9 +1,9 @@
 import { cn } from '#/lib/utils'
-import { formatPrice } from '#/lib/format-price'
+import { formatPrice } from '#/features/shop/format-price'
 import { Button } from '#/components/ui/button'
 
 import type { Product as ProductData } from '#/data/shop'
-import type { ShopPrice } from '#/lib/format-price'
+import type { ShopPrice } from '#/features/shop/format-price'
 import ImageCard from '../ImageCard/ImageCard'
 
 export interface ProductCardProps {
@@ -22,6 +22,7 @@ export default function ProductCard({
   className,
 }: ProductCardProps) {
   const canBuy = price !== undefined && onBuy !== undefined && !isBuying
+  const buttonLabel = price ? (isBuying ? 'Opening…' : 'Buy') : 'Unavailable'
 
   return (
     <article
@@ -40,17 +41,19 @@ export default function ProductCard({
         <div className="flex items-center gap-2 text-sm">
           <span>{item.format}</span>
           &bull;
-          <span aria-live="polite">{price ? formatPrice(price) : '€4.00'}</span>
+          <span aria-live="polite">
+            {price ? formatPrice(price) : 'Unavailable'}
+          </span>
         </div>
       </div>
 
       <Button
         type="button"
-        // disabled={!canBuy}
+        disabled={!canBuy}
         onClick={() => onBuy?.(item.id)}
-        className="w-full uppercase cursor-pointer"
+        className={cn('w-full uppercase cursor-pointer')}
       >
-        {isBuying ? 'Opening…' : 'Buy'}
+        {buttonLabel}
       </Button>
     </article>
   )

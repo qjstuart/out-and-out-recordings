@@ -3,13 +3,20 @@ import ProductCard from '#/components/ProductCard/ProductCard'
 import { routeThemes } from '#/constants/theme'
 import { Products } from '#/data/shop'
 import { fluidFont } from '#/lib/fluid-font'
+import { getShopPrices } from '#/features/shop/pricing.functions'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/shop')({
+  loader: () => getShopPrices(),
   component: Shop,
 })
 
 function Shop() {
+  const priceResults = Route.useLoaderData()
+  const pricesByItemId = new Map(
+    priceResults.map(({ itemId, price }) => [itemId, price]),
+  )
+
   return (
     <main>
       <CircleMosaic baseColor={routeThemes['/shop']} />
@@ -24,7 +31,11 @@ function Shop() {
       {Products.length > 0 ? (
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
           {Products.map((item) => (
-            <ProductCard key={item.id} item={item} />
+            <ProductCard
+              key={item.id}
+              item={item}
+              price={pricesByItemId.get(item.id) ?? undefined}
+            />
           ))}
         </div>
       ) : (

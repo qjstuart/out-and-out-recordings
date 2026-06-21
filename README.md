@@ -5,9 +5,21 @@ Welcome to your new TanStack Start app!
 To run this application:
 
 ```bash
+nvm use
 npm install
 npm run dev
 ```
+
+## Stripe catalogue pricing
+
+The shop keeps separate test and live Stripe Product IDs in
+`src/data/shop.ts`. Add both IDs for every product, and make sure each Stripe
+Product has an active default one-time Price.
+
+For local development, copy `.env.example` to `.env` and replace the example
+value with a Stripe test-mode restricted key. The key only needs read access to
+Products and Prices for the catalogue-pricing step. Never commit a real Stripe
+key.
 
 # Building For Production
 
