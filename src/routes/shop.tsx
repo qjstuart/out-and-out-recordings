@@ -22,7 +22,7 @@ function Shop() {
       </h3>
 
       {Products.length > 0 ? (
-        <div className="grid grid-cols-1 gap-8">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
           {Products.map((item) => (
             <ProductCard key={item.id} item={item} />
           ))}

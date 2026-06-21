@@ -7,6 +7,7 @@ export interface Product {
   imageAlt: string
   catalogNumber?: string
   format: 'Digital WAV' | 'Vinyl'
+  description: string
 }
 
 /**
@@ -21,6 +22,7 @@ export const Products = [
     imageSrc: '/images/shop/the-richest-man-in-babylon.jpg',
     imageAlt: 'Last Train Out cover artwork',
     format: 'Digital WAV',
+    description: 'Track 1 from OUT1',
   },
   {
     id: 'break-and-shake',
@@ -29,5 +31,6 @@ export const Products = [
     imageSrc: '/images/shop/the-richest-man-in-babylon.jpg',
     imageAlt: 'Break And Shake cover artwork',
     format: 'Digital WAV',
+    description: 'Track 2 from OUT2',
   },
 ] satisfies ReadonlyArray<Product>
