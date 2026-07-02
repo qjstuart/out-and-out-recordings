@@ -3,64 +3,94 @@ import { toShopPrice } from '#/features/shop/price-mapper'
 import { getStripeClient, getStripeMode } from '#/lib/stripe.server'
 import { createServerFn } from '@tanstack/react-start'
 
-import type { ShopPrice } from '#/features/shop/format-price'
+import type { Product } from '#/data/shop'
+import type { ShopPrice } from '#/features/shop/types'
+import type Stripe from 'stripe'
 
 export interface ShopPriceResult {
-  itemId: string
+  productId: string
   price: ShopPrice | null
 }
 
-function unavailablePrices(): Array<ShopPriceResult> {
-  return Products.map(({ id }) => ({ itemId: id, price: null }))
+type StripeClient = Stripe
+type StripeMode = keyof Product['stripeProductIds']
+
+function unavailablePrice(product: Product): ShopPriceResult {
+  return { productId: product.id, price: null }
+}
+
+function unavailablePrices(): ShopPriceResult[] {
+  return Products.map((product) => unavailablePrice(product))
+}
+
+// In Stripe, a product's default_price is the sale price currently in use.
+async function retrieveProductWithDefaultPrice(
+  stripe: StripeClient,
+  productId: string,
+) {
+  return stripe.products.retrieve(productId, {
+    expand: ['default_price'],
+  })
+}
+
+function getDefaultShopPrice(product: Stripe.Product) {
+  const defaultPrice = product.default_price
+
+  if (!product.active || !defaultPrice || typeof defaultPrice === 'string') {
+    return null
+  }
+
+  return toShopPrice(defaultPrice) ?? null
+}
+
+async function getProductPrice(
+  stripe: StripeClient,
+  mode: StripeMode,
+  product: Product,
+): Promise<ShopPriceResult> {
+  const productId = product.stripeProductIds[mode]
+
+  // In Stripe, all products should start with "prod_".
+  if (!productId.startsWith('prod_')) {
+    return unavailablePrice(product)
+  }
+
+  try {
+    const stripeProduct = await retrieveProductWithDefaultPrice(
+      stripe,
+      productId,
+    )
+
+    return {
+      productId: product.id,
+      price: getDefaultShopPrice(stripeProduct),
+    }
+  } catch (error) {
+    console.error(
+      `Could not load Stripe pricing for shop item "${product.id}":`,
+      error instanceof Error ? error.message : 'Unknown Stripe error',
+    )
+    return unavailablePrice(product)
+  }
+}
+
+async function handleGetShopPrices(): Promise<ShopPriceResult[]> {
+  try {
+    const stripe = getStripeClient()
+    const mode = getStripeMode()
+
+    return await Promise.all(
+      Products.map((product) => getProductPrice(stripe, mode, product)),
+    )
+  } catch (error) {
+    console.error(
+      'Stripe shop pricing is unavailable:',
+      error instanceof Error ? error.message : 'Unknown configuration error',
+    )
+    return unavailablePrices()
+  }
 }
 
 export const getShopPrices = createServerFn({ method: 'GET' }).handler(
-  async (): Promise<ShopPriceResult[]> => {
-    try {
-      const stripe = getStripeClient()
-      const mode = getStripeMode()
-
-      return await Promise.all(
-        Products.map(async (item): Promise<ShopPriceResult> => {
-          const productId = item.stripeProductIds[mode]
-
-          if (!productId.startsWith('prod_')) {
-            return { itemId: item.id, price: null }
-          }
-
-          try {
-            const product = await stripe.products.retrieve(productId, {
-              expand: ['default_price'],
-            })
-            const defaultPrice = product.default_price
-
-            if (
-              !product.active ||
-              !defaultPrice ||
-              typeof defaultPrice === 'string'
-            ) {
-              return { itemId: item.id, price: null }
-            }
-
-            return {
-              itemId: item.id,
-              price: toShopPrice(defaultPrice) ?? null,
-            }
-          } catch (error) {
-            console.error(
-              `Could not load Stripe pricing for shop item "${item.id}":`,
-              error instanceof Error ? error.message : 'Unknown Stripe error',
-            )
-            return { itemId: item.id, price: null }
-          }
-        }),
-      )
-    } catch (error) {
-      console.error(
-        'Stripe shop pricing is unavailable:',
-        error instanceof Error ? error.message : 'Unknown configuration error',
-      )
-      return unavailablePrices()
-    }
-  },
+  handleGetShopPrices,
 )

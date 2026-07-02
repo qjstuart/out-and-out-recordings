@@ -3,14 +3,14 @@ import { formatPrice } from '#/features/shop/format-price'
 import { Button } from '#/components/ui/button'
 
 import type { Product as ProductData } from '#/data/shop'
-import type { ShopPrice } from '#/features/shop/format-price'
+import type { ShopPrice } from '#/features/shop/types'
 import ImageCard from '../ImageCard/ImageCard'
 
 export interface ProductCardProps {
   item: ProductData
   price?: ShopPrice
   isBuying?: boolean
-  onBuy?: (itemId: string) => void
+  onBuy?: (productId: string) => void
   className?: string
 }
 

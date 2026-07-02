@@ -1,4 +1,4 @@
-Welcome to your new TanStack Start app! 
+Welcome to your new TanStack Start app!
 
 # Getting Started
 
@@ -20,6 +20,52 @@ For local development, copy `.env.example` to `.env` and replace the example
 value with a Stripe test-mode restricted key. The key only needs read access to
 Products and Prices for the catalogue-pricing step. Never commit a real Stripe
 key.
+
+## Order database and access tokens
+
+Orders are stored in the Cloudflare D1 database bound as `DB`. Apply migrations
+locally with `npm run db:migrate:local` and remotely with
+`npm run db:migrate:remote`.
+
+### Creating / Deleting DBs
+
+Create:
+
+```bash
+npx wrangler d1 create <db-name>
+```
+
+Delete:
+
+```bash
+npx wrangler d1 delete <db-name>
+```
+
+### Creating D1 migrations
+
+Create a new empty migration with Wrangler, then edit the generated SQL file in
+`migrations/`:
+
+```bash
+npx wrangler d1 migrations create DB add_order_column
+```
+
+Use a short snake_case name that describes the schema change. After adding the
+SQL, apply it locally first:
+
+```bash
+npm run db:migrate:local
+```
+
+When the local migration is working, apply it to the remote D1 database:
+
+```bash
+npm run db:migrate:remote
+```
+
+Generate `ORDER_ACCESS_TOKEN_SECRET` with `openssl rand -hex 32` and add it to
+your local `.env`. Store the production value as a Cloudflare secret. Changing
+this value invalidates every existing order-access link.
 
 # Building For Production
 
@@ -52,7 +98,6 @@ If you prefer not to use Tailwind CSS:
 
 ## Linting & Formatting
 
-
 This project uses [eslint](https://eslint.org/) and [prettier](https://prettier.io/) for linting and formatting. Eslint is configured using [tanstack/eslint-config](https://tanstack.com/config/latest/docs/eslint). The following scripts are available:
 
 ```bash
@@ -60,7 +105,6 @@ npm run lint
 npm run format
 npm run check
 ```
-
 
 ## Deploy to Cloudflare Workers
 
@@ -74,7 +118,6 @@ For production env vars, run `wrangler secret put MY_VAR` for each secret listed
 
 KV, D1, R2, and Durable Object bindings are configured in `wrangler.jsonc` — see https://developers.cloudflare.com/workers/wrangler/configuration/.
 
-
 ## Shadcn
 
 Add components using the latest version of [Shadcn](https://ui.shadcn.com/).
@@ -82,8 +125,6 @@ Add components using the latest version of [Shadcn](https://ui.shadcn.com/).
 ```bash
 pnpm dlx shadcn@latest add button
 ```
-
-
 
 ## Routing
 
@@ -102,7 +143,7 @@ Now that you have two routes you can use a `Link` component to navigate between 
 To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
 
 ```tsx
-import { Link } from "@tanstack/react-router";
+import { Link } from '@tanstack/react-router'
 ```
 
 Then anywhere in your JSX you can use it like so:
@@ -170,11 +211,11 @@ const getServerTime = createServerFn({
 // Use in a component
 function MyComponent() {
   const [time, setTime] = useState('')
-  
+
   useEffect(() => {
     getServerTime().then(setTime)
   }, [])
-  
+
   return <div>Server time: {time}</div>
 }
 ```

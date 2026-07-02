@@ -3,5 +3,12 @@
   "name": "tanstack-start-app",
   "compatibility_date": "2025-09-02",
   "compatibility_flags": ["nodejs_compat"],
-  "main": "@tanstack/react-start/server-entry"
+  "main": "@tanstack/react-start/server-entry",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "out-and-out-orders",
+      "database_id": "845168a7-0eb9-4fd2-81a8-a8ed05f5a956",
+    },
+  ],
 }

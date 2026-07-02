@@ -13,8 +13,8 @@ export const Route = createFileRoute('/shop')({
 
 function Shop() {
   const priceResults = Route.useLoaderData()
-  const pricesByItemId = new Map(
-    priceResults.map(({ itemId, price }) => [itemId, price]),
+  const pricesByProductId = new Map(
+    priceResults.map(({ productId, price }) => [productId, price]),
   )
 
   return (
@@ -34,7 +34,7 @@ function Shop() {
             <ProductCard
               key={item.id}
               item={item}
-              price={pricesByItemId.get(item.id) ?? undefined}
+              price={pricesByProductId.get(item.id) ?? undefined}
             />
           ))}
         </div>
