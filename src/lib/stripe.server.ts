@@ -8,6 +8,7 @@ let stripeClient: Stripe | undefined
 let stripeClientKey: string | undefined
 
 export function getStripeMode(): StripeMode {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   const mode = process.env.STRIPE_MODE ?? 'test'
 
   if (mode !== 'test' && mode !== 'live') {
