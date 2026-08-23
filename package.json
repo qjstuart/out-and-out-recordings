@@ -19,7 +19,8 @@
     "check": "prettier --check .",
     "deploy": "npm run build && wrangler deploy",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "worker": "wrangler dev"
   },
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.26.0",
