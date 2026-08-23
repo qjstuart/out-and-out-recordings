@@ -277,3 +277,15 @@ Files prefixed with `demo` can be safely deleted. They are there to provide a st
 You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
 
 For TanStack Start specific documentation, visit [TanStack Start](https://tanstack.com/start).
+
+# Plugins
+
+- https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag
+- https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker
+- https://marketplace.visualstudio.com/items?itemName=openai.chatgpt
+- https://marketplace.visualstudio.com/items?itemName=kamikillerto.vscode-colorize
+- https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets
+- https://marketplace.visualstudio.com/items?itemName=codeandstuff.package-json-upgrade
+- https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+- https://marketplace.visualstudio.com/items?itemName=qwtel.sqlite-viewer
+- https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss
