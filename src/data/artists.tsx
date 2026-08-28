@@ -1,49 +1,40 @@
-export const artists = {
-  'the-lounge-conjecture': {
-    name: 'The Lounge Conjecture',
-    heroImageSrc: '/images/artists/the-lounge-conjecture/hero-image.jpg',
-    /**
-     * Controls which part of the image remains visible when it is cropped.
-     * The first value is horizontal and the second is vertical.
-     * Examples: 'center top', 'center 30%', '75% 60%'.
-     */
-    heroPosition: '50% 35%',
-    /**
-     * Controls the hero image zoom. Use 1 for no zoom, 1.2 for 20%, etc.
-     * The zoom is anchored around heroPosition.
-     */
-    heroZoom: 1,
-    galleryImageSrcs: [
-      '/images/artists/the-lounge-conjecture/gallery1.webp',
-      '/images/artists/the-lounge-conjecture/gallery2.jpg',
+import type { Artist } from '#/types'
+
+const theLoungeConjecture = {
+  name: 'The Lounge Conjecture',
+  slug: 'the-lounge-conjecture',
+  bioMarkdown: `
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ipsam aspernatur commodi nesciunt culpa iste numquam libero veritatis autem esse facere magni quidem itaque aperiam sint quae assumenda soluta doloribus earum, sit voluptates voluptatibus vero consectetur at? Impedit rem, distinctio ab, officia perferendis facilis voluptas voluptates qui odit reiciendis accusantium omnis temporibus repudiandae delectus maiores voluptatem sint repellendus placeat nulla iure nobis ipsa?
+
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptas quam quos ipsum quod hic, pariatur iure ea, animi eaque necessitatibus repellendus cum impedit! Aliquam assumenda accusamus consectetur voluptas tempore sapiente, dolores harum quia nulla, corrupti repellendus reprehenderit autem perferendis.
+  `.trim(),
+  images: {
+    hero: {
+      src: '/images/artists/the-lounge-conjecture/hero-image.jpg',
+      alt: 'The Lounge Conjecture',
+      objectPosition: '50% 35%',
+      zoom: 1,
+    },
+    supporting: [
+      {
+        src: '/images/artists/the-lounge-conjecture/gallery1.webp',
+        alt: 'The Lounge Conjecture promotional image',
+      },
+      {
+        src: '/images/artists/the-lounge-conjecture/gallery2.jpg',
+        alt: 'The Lounge Conjecture promotional image',
+      },
     ],
-    bio: (
-      <div className="space-y-4">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas ipsam
-          aspernatur commodi nesciunt culpa iste numquam libero veritatis autem
-          esse facere magni quidem itaque aperiam sint quae assumenda soluta
-          doloribus earum, sit voluptates voluptatibus vero consectetur at?
-          Impedit rem, distinctio ab, officia perferendis facilis voluptas
-          voluptates qui odit reiciendis accusantium omnis temporibus
-          repudiandae delectus maiores voluptatem sint repellendus placeat nulla
-          iure nobis ipsa?
-        </p>
-        <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo
-          voluptas quam quos ipsum quod hic, pariatur iure ea, animi eaque
-          necessitatibus repellendus cum impedit! Aliquam assumenda accusamus
-          consectetur voluptas tempore sapiente, dolores harum quia nulla,
-          corrupti repellendus reprehenderit autem perferendis.
-        </p>
-      </div>
-    ),
   },
-} as const
+} as const satisfies Artist
 
-export type ArtistSlug = keyof typeof artists
-export type Artist = (typeof artists)[ArtistSlug]
+export const artists = [
+  theLoungeConjecture,
+] as const satisfies readonly Artist[]
 
-export function isArtistSlug(value: string): value is ArtistSlug {
-  return Object.hasOwn(artists, value)
+// This 'derived union' makes the type-checker aware of all artist slugs.
+export type ArtistSlug = (typeof artists)[number]['slug']
+
+export function getArtistBySlug(slug: string): Artist | undefined {
+  return artists.find((artist) => artist.slug === slug)
 }
