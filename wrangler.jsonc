@@ -4,11 +4,41 @@
   "compatibility_date": "2025-09-02",
   "compatibility_flags": ["nodejs_compat"],
   "main": "@tanstack/react-start/server-entry",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+  },
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "out-and-out-orders",
-      "database_id": "845168a7-0eb9-4fd2-81a8-a8ed05f5a956",
+      "database_name": "out-and-out-recordings-local-db",
+      "database_id": "123",
     },
   ],
+  "env": {
+    "staging": {
+      "vars": {
+        "ENVIRONMENT": "staging",
+      },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "out-and-out-recordings-staging-db",
+          "database_id": "d59abf29-958f-4cd2-9454-3991fd3813be",
+        },
+      ],
+    },
+    "production": {
+      "vars": {
+        "ENVIRONMENT": "production",
+      },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "out-and-out-orders",
+          "database_id": "845168a7-0eb9-4fd2-81a8-a8ed05f5a956",
+        },
+      ],
+    },
+  },
 }
