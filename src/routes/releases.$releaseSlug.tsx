@@ -2,6 +2,7 @@ import { createFileRoute, notFound } from '@tanstack/react-router'
 
 import CircleMosaic from '#/components/CircleMosaic/CircleMosaic'
 import ImageCard from '#/components/ImageCard/ImageCard'
+import ReleaseInfo from '#/components/ReleaseInfo/ReleaseInfo'
 import Tracklisting from '#/components/Tracklisting/Tracklisting'
 import { routeThemes } from '#/constants/theme'
 import { getReleaseBySlug } from '#/data/releases'
@@ -58,7 +59,10 @@ function ReleasePage() {
           image={release.artwork}
           className="max-w-70 border-none mx-auto"
         />
-        <Tracklisting tracks={release.tracks} />
+        <div className="space-y-6">
+          <ReleaseInfo release={release} />
+          <Tracklisting tracks={release.tracks} />
+        </div>
       </div>
     </main>
   )
