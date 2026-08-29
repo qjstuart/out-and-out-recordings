@@ -34,7 +34,8 @@
   --font-arabic: 'ITC Handel Gothic Arabic', sans-serif;
   --font-sans: 'Open Sans', 'Segoe UI', sans-serif;
   --breakpoint-sm: 20rem;
-  --breakpoint-md: 45rem;
+  --breakpoint-md: 36rem;
+  --breakpoint-lg: 45rem;
 }
 
 @theme inline {
