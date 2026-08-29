@@ -51,6 +51,7 @@ export const routeThemes = {
   '/': 'orange',
   '/shop': 'emerald',
   '/contact': 'neutral',
+  '/releases': 'sky',
 } as const satisfies Record<string, ThemeColor>
 
 export type ThemedRoute = keyof typeof routeThemes

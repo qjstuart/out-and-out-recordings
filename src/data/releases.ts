@@ -4,11 +4,11 @@ import { breakAndShake, lastTrainOut } from './tracks'
 
 export const lastTrainOutBreakAndShake = {
   title: 'Last Train Out / Break And Shake',
-  id: '4065328919768',
+  id: 'last-train-out-break-and-shake',
   releaseDate: '2026-07-31',
   artists: [theLoungeConjecture],
   catalogNumber: 'OUT1',
-  format: 'digital',
+  formats: ['digital'],
   slug: 'last-train-out-break-and-shake',
   tracks: [lastTrainOut, breakAndShake],
   descriptionMarkdown: `
@@ -21,3 +21,13 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptas quam quos
     alt: 'Release artwork',
   },
 } as const satisfies Release
+
+export const releases = [
+  lastTrainOutBreakAndShake,
+] as const satisfies readonly Release[]
+
+export type ReleaseSlug = (typeof releases)[number]['slug']
+
+export function getReleaseBySlug(slug: string): Release | undefined {
+  return releases.find((release) => release.slug === slug)
+}

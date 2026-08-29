@@ -31,7 +31,7 @@ export type Release = {
   readonly descriptionMarkdown: string
   readonly tracks: readonly Track[]
   readonly artwork: Image
-  readonly format: 'digital' | 'vinyl'
+  readonly formats: readonly ['digital' | 'vinyl', ...('digital' | 'vinyl')[]]
 }
 
 export type Track = {

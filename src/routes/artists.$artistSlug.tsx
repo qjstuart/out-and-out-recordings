@@ -6,16 +6,20 @@ import { getArtistBySlug } from '#/data/artists'
 import { fluidFont } from '#/lib/fluid-font'
 
 export const Route = createFileRoute('/artists/$artistSlug')({
+  loader: function loadArtist({ params }) {
+    const artist = getArtistBySlug(params.artistSlug)
+
+    if (!artist) {
+      throw notFound()
+    }
+
+    return artist
+  },
   component: ArtistPage,
 })
 
 function ArtistPage() {
-  const { artistSlug } = Route.useParams()
-  const artist = getArtistBySlug(artistSlug)
-
-  if (!artist) {
-    throw notFound()
-  }
+  const artist = Route.useLoaderData()
 
   const heroImage = artist.images.hero
   const supportingImages = artist.images.supporting
