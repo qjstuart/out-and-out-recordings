@@ -1,38 +1,41 @@
 import { themeClasses } from '#/constants/theme'
 import { cn } from '#/lib/utils'
 
+import type { CSSProperties } from 'react'
 import type { ThemeColor } from '../../constants/theme'
+
+const DESKTOP_CIRCLES_PER_ROW = 18
+const MOBILE_CIRCLES_PER_ROW = 12
 
 export interface CircleMosaicProps {
   baseColor: ThemeColor
-  circlesPerRow?: number
   className?: string
 }
 
-export function CircleMosaic({
-  baseColor,
-  circlesPerRow = 18,
-  className,
-}: CircleMosaicProps) {
-  const count = Math.max(1, Math.floor(circlesPerRow))
-
+export function CircleMosaic({ baseColor, className }: CircleMosaicProps) {
   return (
     <div
-      className={cn('flex w-full flex-col gap-2 mb-3', className)}
+      className={cn('mb-3 flex w-full flex-col gap-1.5 md:gap-2', className)}
       aria-hidden="true"
     >
       {themeClasses[baseColor].mosaic.map((color) => (
         <div
           key={color}
-          className="grid gap-1.5"
-          style={{ gridTemplateColumns: `repeat(${count}, minmax(0, 1fr))` }}
+          className="grid grid-cols-[repeat(var(--circle-count-mobile),minmax(0,1fr))] gap-1.5 md:grid-cols-[repeat(var(--circle-count-desktop),minmax(0,1fr))]"
+          style={
+            {
+              '--circle-count-mobile': MOBILE_CIRCLES_PER_ROW,
+              '--circle-count-desktop': DESKTOP_CIRCLES_PER_ROW,
+            } as CSSProperties
+          }
         >
-          {Array.from({ length: count }, (_, index) => (
+          {Array.from({ length: DESKTOP_CIRCLES_PER_ROW }, (_, index) => (
             <span
               key={`${color}-${index}`}
               className={cn(
                 color,
                 'aspect-square min-w-0 rounded-full opacity-90',
+                index >= MOBILE_CIRCLES_PER_ROW && 'hidden md:block',
               )}
             />
           ))}
