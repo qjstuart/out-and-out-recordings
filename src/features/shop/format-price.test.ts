@@ -5,13 +5,19 @@ import { formatPrice } from '#/features/shop/format-price'
 describe('formatPrice', () => {
   it('formats a two-decimal currency from its minor unit', () => {
     expect(
-      formatPrice({ priceId: 'price_eur', unitAmount: 400, currency: 'eur' }),
+      formatPrice(
+        { priceId: 'price_eur', unitAmount: 400, currency: 'eur' },
+        'en-US',
+      ),
     ).toBe('€4.00')
   })
 
   it('formats a zero-decimal currency without dividing its amount', () => {
     expect(
-      formatPrice({ priceId: 'price_jpy', unitAmount: 400, currency: 'jpy' }),
+      formatPrice(
+        { priceId: 'price_jpy', unitAmount: 400, currency: 'jpy' },
+        'en-US',
+      ),
     ).toBe('¥400')
   })
 })

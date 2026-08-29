@@ -1,14 +1,15 @@
 import type { ShopPrice } from './types'
 
-export function formatPrice({ unitAmount, currency }: ShopPrice) {
-  const fractionDigits = new Intl.NumberFormat('en', {
+export function formatPrice(
+  { unitAmount, currency }: ShopPrice,
+  locale?: Intl.LocalesArgument,
+) {
+  const formatter = new Intl.NumberFormat(locale, {
     style: 'currency',
     currency,
-  }).resolvedOptions().maximumFractionDigits
+  })
+  const fractionDigits = formatter.resolvedOptions().maximumFractionDigits
   const minorUnitDigits = fractionDigits ?? 2
 
-  return new Intl.NumberFormat(undefined, {
-    style: 'currency',
-    currency,
-  }).format(unitAmount / 10 ** minorUnitDigits)
+  return formatter.format(unitAmount / 10 ** minorUnitDigits)
 }
