@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ShopRouteImport } from './routes/shop'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ReleasesReleaseSlugRouteImport } from './routes/releases.$releaseSlug'
 import { Route as ArtistsArtistSlugRouteImport } from './routes/artists.$artistSlug'
 
 const ShopRoute = ShopRouteImport.update({
@@ -29,6 +30,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReleasesReleaseSlugRoute = ReleasesReleaseSlugRouteImport.update({
+  id: '/releases/$releaseSlug',
+  path: '/releases/$releaseSlug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ArtistsArtistSlugRoute = ArtistsArtistSlugRouteImport.update({
   id: '/artists/$artistSlug',
   path: '/artists/$artistSlug',
@@ -40,12 +46,14 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/shop': typeof ShopRoute
   '/artists/$artistSlug': typeof ArtistsArtistSlugRoute
+  '/releases/$releaseSlug': typeof ReleasesReleaseSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
   '/shop': typeof ShopRoute
   '/artists/$artistSlug': typeof ArtistsArtistSlugRoute
+  '/releases/$releaseSlug': typeof ReleasesReleaseSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,30 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/shop': typeof ShopRoute
   '/artists/$artistSlug': typeof ArtistsArtistSlugRoute
+  '/releases/$releaseSlug': typeof ReleasesReleaseSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/contact' | '/shop' | '/artists/$artistSlug'
+  fullPaths:
+    | '/'
+    | '/contact'
+    | '/shop'
+    | '/artists/$artistSlug'
+    | '/releases/$releaseSlug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/contact' | '/shop' | '/artists/$artistSlug'
-  id: '__root__' | '/' | '/contact' | '/shop' | '/artists/$artistSlug'
+  to:
+    | '/'
+    | '/contact'
+    | '/shop'
+    | '/artists/$artistSlug'
+    | '/releases/$releaseSlug'
+  id:
+    | '__root__'
+    | '/'
+    | '/contact'
+    | '/shop'
+    | '/artists/$artistSlug'
+    | '/releases/$releaseSlug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +92,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   ShopRoute: typeof ShopRoute
   ArtistsArtistSlugRoute: typeof ArtistsArtistSlugRoute
+  ReleasesReleaseSlugRoute: typeof ReleasesReleaseSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -92,6 +118,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/releases/$releaseSlug': {
+      id: '/releases/$releaseSlug'
+      path: '/releases/$releaseSlug'
+      fullPath: '/releases/$releaseSlug'
+      preLoaderRoute: typeof ReleasesReleaseSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/artists/$artistSlug': {
       id: '/artists/$artistSlug'
       path: '/artists/$artistSlug'
@@ -107,6 +140,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   ShopRoute: ShopRoute,
   ArtistsArtistSlugRoute: ArtistsArtistSlugRoute,
+  ReleasesReleaseSlugRoute: ReleasesReleaseSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
