@@ -1,16 +1,19 @@
-import type { Artist } from '../../data/artists'
+import type { Image } from '#/types'
 
 import { cn } from '../../lib/utils'
 
-export interface ArtistHeroImageProps {
-  artist: Artist
+export type ArtistHeroImageProps = {
+  image: Image
   className?: string
 }
 
 export default function ArtistHeroImage({
-  artist,
+  image,
   className,
 }: ArtistHeroImageProps) {
+  const objectPosition = image.objectPosition ?? '50% 50%'
+  const zoom = image.zoom ?? 1
+
   return (
     <div
       className={cn(
@@ -19,13 +22,13 @@ export default function ArtistHeroImage({
       )}
     >
       <img
-        src={artist.heroImageSrc}
-        alt={artist.name}
+        src={image.src}
+        alt={image.alt}
         fetchPriority="high"
         style={{
-          objectPosition: artist.heroPosition,
-          transform: `scale(${artist.heroZoom})`,
-          transformOrigin: artist.heroPosition,
+          objectPosition,
+          transform: `scale(${zoom})`,
+          transformOrigin: objectPosition,
         }}
         className="block h-full w-full object-cover"
       />

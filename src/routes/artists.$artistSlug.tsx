@@ -1,40 +1,46 @@
 import { createFileRoute, notFound } from '@tanstack/react-router'
 import ArtistHeroImage from '#/components/ArtistHeroImage/ArtistHeroImage'
 import ImageCard from '#/components/ImageCard/ImageCard'
-import { artists, isArtistSlug } from '#/data/artists'
+import Markdown from '#/components/Markdown/Markdown'
+import { getArtistBySlug } from '#/data/artists'
 import { fluidFont } from '#/lib/fluid-font'
 
 export const Route = createFileRoute('/artists/$artistSlug')({
-  component: RouteComponent,
+  component: ArtistPage,
 })
 
-function RouteComponent() {
+function ArtistPage() {
   const { artistSlug } = Route.useParams()
+  const artist = getArtistBySlug(artistSlug)
 
-  if (!isArtistSlug(artistSlug)) {
+  if (!artist) {
     throw notFound()
   }
 
-  const artist = artists[artistSlug]
-  const galleryImages = artist.galleryImageSrcs
+  const heroImage = artist.images.hero
+  const supportingImages = artist.images.supporting
 
   return (
     <main>
-      <ArtistHeroImage artist={artist} />
+      <ArtistHeroImage image={heroImage} />
       <h3 className="font-arabic mb-4" style={{ fontSize: fluidFont(20, 36) }}>
         {artist.name}
       </h3>
 
       <div className="flex flex-col gap-5 md:flex-row">
-        <div className="leading-snug text-sm mb-4">{artist.bio}</div>
+        <Markdown className="leading-snug text-sm mb-4">
+          {artist.bioMarkdown}
+        </Markdown>
 
         <div className="flex flex-col gap-6">
-          {galleryImages.map((image) => (
+          {supportingImages.map((image) => (
             <ImageCard
-              key={image}
+              key={image.src}
               className=" mx-auto md:w-45 md:mx-0"
-              src={image}
-              alt={`${artist.name} promotional image`}
+              src={image.src}
+              alt={image.alt}
+              objectPosition={image.objectPosition}
+              zoom={image.zoom}
             />
           ))}
         </div>
