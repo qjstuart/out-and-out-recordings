@@ -36,11 +36,8 @@ function ArtistPage() {
           {supportingImages.map((image) => (
             <ImageCard
               key={image.src}
+              image={image}
               className=" mx-auto md:w-45 md:mx-0"
-              src={image.src}
-              alt={image.alt}
-              objectPosition={image.objectPosition}
-              zoom={image.zoom}
             />
           ))}
         </div>

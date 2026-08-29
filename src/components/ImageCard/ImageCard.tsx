@@ -1,22 +1,26 @@
 import { useRef } from 'react'
 import { X } from 'lucide-react'
 
+import type { Image } from '#/types'
 import { cn } from '#/lib/utils'
 
-export interface ImageCardProps {
-  src: string
-  alt: string
+export type ImageCardProps = {
+  image: Image
   className?: string
   imageClassName?: string
 }
 
+/**
+ * Our go-to component for displaying an image.
+ * Opens the image as a modal when clicked.
+ */
 export default function ImageCard({
-  src,
-  alt,
+  image,
   className,
   imageClassName,
 }: ImageCardProps) {
   const dialogRef = useRef<HTMLDialogElement>(null)
+  const { src, alt, objectPosition = '50% 50%', zoom = 1 } = image
 
   function openImage() {
     const dialog = dialogRef.current
@@ -48,6 +52,11 @@ export default function ImageCard({
           src={src}
           alt={alt}
           loading="lazy"
+          style={{
+            objectPosition,
+            transform: `scale(${zoom})`,
+            transformOrigin: objectPosition,
+          }}
           className={cn('block h-auto w-full', imageClassName)}
         />
       </button>
@@ -64,7 +73,7 @@ export default function ImageCard({
           <img
             src={src}
             alt={alt}
-            className="max-h-[calc(100dvh-2rem)] max-w-[calc(100vw-2rem)] border border-white object-contain"
+            className="border border-white object-contain max-h-[inherit]" // Codex suggested `max-h-[inherit]` to prevent overflow of tall images. No need to worry about width (apparently) due to Tailwind's global styles.
           />
           <button
             type="button"
