@@ -1,7 +1,7 @@
 import CircleMosaic from '#/components/CircleMosaic/CircleMosaic'
 import ProductCard from '#/components/ProductCard/ProductCard'
 import { routeThemes } from '#/constants/theme'
-import { Products } from '#/data/shop'
+import { Products } from '#/data/shop-old'
 import { fluidFont } from '#/lib/fluid-font'
 import { getShopPrices } from '#/features/shop/pricing.functions'
 import { createFileRoute } from '@tanstack/react-router'

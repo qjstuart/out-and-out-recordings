@@ -2,9 +2,10 @@ import { cn } from '#/lib/utils'
 import { formatPrice } from '#/features/shop/format-price'
 import { Button } from '#/components/ui/button'
 
-import type { Product as ProductData } from '#/data/shop'
+import type { Product as ProductData } from '#/data/shop-old'
 import type { ShopPrice } from '#/features/shop/types'
 import ImageCard from '../ImageCard/ImageCard'
+import type { Image } from '#/types'
 
 export interface ProductCardProps {
   item: ProductData
@@ -23,6 +24,12 @@ export default function ProductCard({
 }: ProductCardProps) {
   const canBuy = price !== undefined && onBuy !== undefined && !isBuying
   const buttonLabel = price ? (isBuying ? 'Opening…' : 'Buy') : 'Unavailable'
+  const image: Image = {
+    src: item.imageSrc,
+    alt: item.imageAlt,
+    objectPosition: '50% 50%',
+    zoom: 1,
+  }
 
   return (
     <article
@@ -32,7 +39,7 @@ export default function ProductCard({
         className,
       )}
     >
-      <ImageCard src={item.imageSrc} alt={item.imageAlt} className="shrink-0" />
+      <ImageCard image={image} className="shrink-0" />
 
       <div className="size-full">
         <p className="font-bold">{item.artist}</p>

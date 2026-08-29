@@ -1,9 +1,9 @@
-import { Products } from '#/data/shop'
+import { Products } from '#/data/shop-old'
 import { toShopPrice } from '#/features/shop/price-mapper'
 import { getStripeClient, getStripeMode } from '#/lib/stripe.server'
 import { createServerFn } from '@tanstack/react-start'
 
-import type { Product } from '#/data/shop'
+import type { Product } from '#/data/shop-old'
 import type { ShopPrice } from '#/features/shop/types'
 import type Stripe from 'stripe'
 

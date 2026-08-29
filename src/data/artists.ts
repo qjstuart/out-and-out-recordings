@@ -1,6 +1,6 @@
 import type { Artist } from '#/types'
 
-const theLoungeConjecture = {
+export const theLoungeConjecture = {
   name: 'The Lounge Conjecture',
   slug: 'the-lounge-conjecture',
   bioMarkdown: `

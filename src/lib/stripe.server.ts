@@ -1,6 +1,6 @@
 import Stripe from 'stripe'
 
-import type { Product } from '#/data/shop'
+import type { Product } from '#/data/shop-old'
 
 export type StripeMode = keyof Product['stripeProductIds']
 
