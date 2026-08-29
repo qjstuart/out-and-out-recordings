@@ -6,6 +6,23 @@
 
 @font-face {
   font-family: 'ITC Handel Gothic Arabic';
+  src: url('./assets/fonts/itc-handel-gothic-arabic-regular.woff2')
+    format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ITC Handel Gothic Arabic';
+  src: url('./assets/fonts/itc-handel-gothic-arabic-bold.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ITC Handel Gothic Arabic';
   src: url('./assets/fonts/itc-handel-gothic-arabic-heavy.woff2')
     format('woff2');
   font-style: normal;
