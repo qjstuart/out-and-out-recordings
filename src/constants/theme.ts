@@ -50,7 +50,7 @@ export type ThemeColor = keyof typeof themeClasses
 export const routeThemes = {
   '/': 'orange',
   '/shop': 'emerald',
-  '/contact': 'neutral',
+  '/contact': 'stone',
   '/releases': 'sky',
 } as const satisfies Record<string, ThemeColor>
 
