@@ -4,7 +4,7 @@ import { fluidFont } from '#/lib/fluid-font'
 
 const navItems = [
   { label: 'Home', to: '/' },
-  { label: 'Shop', to: '/shop' },
+  { label: 'Discography', to: '/discography' },
   { label: 'Contact', to: '/contact' },
 ] as const
 

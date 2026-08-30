@@ -9,15 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ShopRouteImport } from './routes/shop'
+import { Route as DiscographyRouteImport } from './routes/discography'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ReleasesReleaseSlugRouteImport } from './routes/releases.$releaseSlug'
 import { Route as ArtistsArtistSlugRouteImport } from './routes/artists.$artistSlug'
 
-const ShopRoute = ShopRouteImport.update({
-  id: '/shop',
-  path: '/shop',
+const DiscographyRoute = DiscographyRouteImport.update({
+  id: '/discography',
+  path: '/discography',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -44,14 +44,14 @@ const ArtistsArtistSlugRoute = ArtistsArtistSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
-  '/shop': typeof ShopRoute
+  '/discography': typeof DiscographyRoute
   '/artists/$artistSlug': typeof ArtistsArtistSlugRoute
   '/releases/$releaseSlug': typeof ReleasesReleaseSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
-  '/shop': typeof ShopRoute
+  '/discography': typeof DiscographyRoute
   '/artists/$artistSlug': typeof ArtistsArtistSlugRoute
   '/releases/$releaseSlug': typeof ReleasesReleaseSlugRoute
 }
@@ -59,7 +59,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
-  '/shop': typeof ShopRoute
+  '/discography': typeof DiscographyRoute
   '/artists/$artistSlug': typeof ArtistsArtistSlugRoute
   '/releases/$releaseSlug': typeof ReleasesReleaseSlugRoute
 }
@@ -68,21 +68,21 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/contact'
-    | '/shop'
+    | '/discography'
     | '/artists/$artistSlug'
     | '/releases/$releaseSlug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/contact'
-    | '/shop'
+    | '/discography'
     | '/artists/$artistSlug'
     | '/releases/$releaseSlug'
   id:
     | '__root__'
     | '/'
     | '/contact'
-    | '/shop'
+    | '/discography'
     | '/artists/$artistSlug'
     | '/releases/$releaseSlug'
   fileRoutesById: FileRoutesById
@@ -90,18 +90,18 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ContactRoute: typeof ContactRoute
-  ShopRoute: typeof ShopRoute
+  DiscographyRoute: typeof DiscographyRoute
   ArtistsArtistSlugRoute: typeof ArtistsArtistSlugRoute
   ReleasesReleaseSlugRoute: typeof ReleasesReleaseSlugRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/shop': {
-      id: '/shop'
-      path: '/shop'
-      fullPath: '/shop'
-      preLoaderRoute: typeof ShopRouteImport
+    '/discography': {
+      id: '/discography'
+      path: '/discography'
+      fullPath: '/discography'
+      preLoaderRoute: typeof DiscographyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -138,7 +138,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ContactRoute: ContactRoute,
-  ShopRoute: ShopRoute,
+  DiscographyRoute: DiscographyRoute,
   ArtistsArtistSlugRoute: ArtistsArtistSlugRoute,
   ReleasesReleaseSlugRoute: ReleasesReleaseSlugRoute,
 }
