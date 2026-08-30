@@ -21,6 +21,18 @@ export type Artist = {
   }
 }
 
+export type ReleaseLinks = {
+  readonly spotify?: string
+  readonly appleMusic?: string
+  readonly beatport?: string
+  readonly bandcamp?: string
+  readonly youtubeMusic?: string
+}
+
+export type ReleaseEmbeds = {
+  readonly beatportReleaseId?: string
+}
+
 export type Release = {
   readonly id: string
   readonly title: string
@@ -32,6 +44,8 @@ export type Release = {
   readonly tracks: readonly Track[]
   readonly artwork: Image
   readonly formats: readonly ['digital' | 'vinyl', ...('digital' | 'vinyl')[]]
+  readonly links: ReleaseLinks
+  readonly embeds?: ReleaseEmbeds
 }
 
 export type Track = {
@@ -63,3 +77,11 @@ export type MerchandiseProduct = BaseProduct & {
 }
 
 export type Product = ReleaseProduct | TrackProduct | MerchandiseProduct
+
+export type Event = {
+  readonly name: string
+  readonly location: string
+  readonly date: string
+  readonly time?: string
+  readonly type: 'dj' | 'live'
+}
